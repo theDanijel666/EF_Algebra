@@ -1,0 +1,56 @@
+﻿@model ADO_racuni.Models.Invoice
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.InvoiceNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InvoiceNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfIssue)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateOfIssue)
+        </dd>
+    </dl>
+</div>
+
+<div class="row">
+    <table class="table table-striped">
+        <tr>
+            <th>Naziv</th>
+            <th>Količina</th>
+            <th>Jedinična cijena</th>
+            <th>Ukupna cijena stavke</th>
+        </tr>
+        <tbody>
+            @foreach(var item in Model.InvoiceItems)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Quantity.ToString("0.00")</td>
+                    <td>@item.Price.ToString("0.00")</td>
+                    <td>@item.InvoiceItemTotal().ToString("0.00")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<p>
+    Ukupno za platiti račun: @Model.InvoiceTotal().ToString("0.00")
+</p>
+
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
